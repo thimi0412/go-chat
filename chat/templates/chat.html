@@ -32,7 +32,7 @@
     if (!window["WebSocket"]) {
       alert("Error : This is an unsupported browser for WebSocket")
     } else {
-      socket = new WebSocket("ws://172.17.1.17:8080/room");
+      socket = new WebSocket("ws://{{.Host}}/room");
       socket.onclose = function() {
         alert("Connection terminated")
       }

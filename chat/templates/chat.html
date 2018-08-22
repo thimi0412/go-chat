@@ -13,6 +13,7 @@
       {{.UserData.name}}:<br/>
       <textarea></textarea>
       <input type="submit" value="送信" />
+      <a href="/logout">サインアウト</a>
     </form>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
@@ -44,6 +45,10 @@
         const when = new Date(msg.When);
         messages.append(
           $("<li>").append(
+            $("<img>").css({
+              width: 50,
+              verticalAlign: "middle"
+            }).attr("src", msg.AvatarURL),
             $("<strong>").text(when.toTimeString().split(" ")[0] + "- "),
             $("<strong>").text(msg.Name + ": "),
             $("<span>").text(msg.Message),

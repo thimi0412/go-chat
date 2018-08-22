@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/stretchr/gomniauth/providers/github"
+
 	"github.com/stretchr/gomniauth/providers/facebook"
 
 	"github.com/stretchr/objx"
@@ -36,6 +38,11 @@ type clientSecret struct {
 		ClientSecret string   `json:"client_secret"`
 		RedirectUris []string `json:"redirect_uris"`
 	} `json:"facebook"`
+	Github struct {
+		ClientID     string   `json:"client_id"`
+		ClientSecret string   `json:"client_secret"`
+		RedirectUris []string `json:"redirect_uris"`
+	} `json:"github"`
 }
 
 // SeverHTTP:Processing of HTTP request
@@ -73,6 +80,7 @@ func main() {
 	gomniauth.WithProviders(
 		google.New(cs.Google.ClientID, cs.Google.ClientSecret, cs.Google.RedirectUris[0]),
 		facebook.New(cs.Facebook.ClientID, cs.Facebook.ClientSecret, cs.Facebook.RedirectUris[0]),
+		github.New(cs.Github.ClientID, cs.Github.ClientSecret, cs.Github.RedirectUris[0]),
 	)
 
 	r := newRoom()

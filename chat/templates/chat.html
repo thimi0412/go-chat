@@ -40,11 +40,13 @@
         alert("接続が終了しました。");
       }
       socket.onmessage = function(e) {
-        var msg = eval("("+e.data+")");  // var msg = JSON.parse(e.data);
+        const msg = eval("("+e.data+")");  // var msg = JSON.parse(e.data);
+        const when = new Date(msg.When);
         messages.append(
           $("<li>").append(
+            $("<strong>").text(when.toTimeString().split(" ")[0] + "- "),
             $("<strong>").text(msg.Name + ": "),
-            $("<span>").text(msg.Message)
+            $("<span>").text(msg.Message),
           )
         );
       }

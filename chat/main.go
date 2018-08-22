@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/stretchr/gomniauth/providers/facebook"
+
 	"github.com/stretchr/objx"
 
 	"github.com/stretchr/gomniauth"
@@ -24,16 +26,16 @@ type templateHandler struct {
 }
 
 type clientSecret struct {
-	Web struct {
-		ClientID                string   `json:"client_id"`
-		ProjectID               string   `json:"project_id"`
-		AuthURI                 string   `json:"auth_uri"`
-		TokenURI                string   `json:"token_uri"`
-		AuthProviderX509CertURL string   `json:"auth_provider_x509_cert_url"`
-		ClientSecret            string   `json:"client_secret"`
-		RedirectUris            []string `json:"redirect_uris"`
-		JavascriptOrigins       []string `json:"javascript_origins"`
-	} `json:"web"`
+	Google struct {
+		ClientID     string   `json:"client_id"`
+		ClientSecret string   `json:"client_secret"`
+		RedirectUris []string `json:"redirect_uris"`
+	} `json:"google"`
+	Facebook struct {
+		ClientID     string   `json:"client_id"`
+		ClientSecret string   `json:"client_secret"`
+		RedirectUris []string `json:"redirect_uris"`
+	} `json:"facebook"`
 }
 
 // SeverHTTP:Processing of HTTP request
@@ -69,7 +71,8 @@ func main() {
 	//Gomniauthの設定
 	gomniauth.SetSecurityKey("SecurityKey")
 	gomniauth.WithProviders(
-		google.New(cs.Web.ClientID, cs.Web.ClientSecret, cs.Web.RedirectUris[0]),
+		google.New(cs.Google.ClientID, cs.Google.ClientSecret, cs.Google.RedirectUris[0]),
+		facebook.New(cs.Facebook.ClientID, cs.Facebook.ClientSecret, cs.Facebook.RedirectUris[0]),
 	)
 
 	r := newRoom()

@@ -8,6 +8,7 @@
 <body>
   <ul id="message"></ul>
   This chat application is used by WebSocket
+  {{.UserData.name}}:<br/>
   <form id="chatbox">
     <textarea></textarea>
     <input type="submit" value="Send">
@@ -25,7 +26,7 @@
         alert("Error : Don't connect WebSocket")
         return false;
       }
-      socket.send(msgBox.val());
+      socket.send(JSON.stringify({"Message": msgBox.val()}));
       msgBox.val("");
       return false;
     });
@@ -37,7 +38,11 @@
         alert("Connection terminated")
       }
       socket.onmessage = function(e) {
-        message.append($("<li>").text(e.data));
+        message.append(
+          $("<li>")).append(
+            $("<strong>").text(msg.Name + ": "),
+            $("<span>").text(mag.Massega)
+          )
       }
     }
   });

@@ -20,6 +20,12 @@ import (
 	"github.com/stretchr/gomniauth/providers/google"
 )
 
+var avatars Avatar = TryAvatars{
+	UseFileSystemAvatar,
+	UseAuthAvatar,
+	UseGravatar,
+}
+
 // template
 type templateHandler struct {
 	once     sync.Once
@@ -83,7 +89,7 @@ func main() {
 		github.New(cs.Github.ClientID, cs.Github.ClientSecret, cs.Github.RedirectUris[0]),
 	)
 
-	r := newRoom(UseFileSystemAvatar)
+	r := newRoom()
 	// show log
 	//r.tracer = trace.New(os.Stdout)
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))

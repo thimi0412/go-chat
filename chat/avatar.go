@@ -35,7 +35,7 @@ func (AuthAvatar) GetAvatarURL(c *client) (string, error) {
 // GravatarAvatar is empty struct
 type GravatarAvatar struct{}
 
-// UseGravatar is GravatarAvatar
+// UseGravatar is GravatarAvatar's instance
 var UseGravatar GravatarAvatar
 
 // GetAvatarURL is method which return gravatarURL
@@ -45,6 +45,22 @@ func (GravatarAvatar) GetAvatarURL(c *client) (string, error) {
 			m := md5.New()
 			io.WriteString(m, strings.ToLower(useridStr))
 			return "//www.gravatar.com/avatar/" + useridStr, nil
+		}
+	}
+	return "", ErrNoAvatarURL
+}
+
+// FileSystemAvatar is empty struct
+type FileSystemAvatar struct{}
+
+// UseFileSystemAvatar is FileSystemAvatar's instance
+var UseFileSystemAvatar FileSystemAvatar
+
+// GetAvatarURL is method which return imagepath
+func (FileSystemAvatar) GetAvatarURL(c *client) (string, error) {
+	if userid, ok := c.userData["userid"]; ok {
+		if useridStr, ok := userid.(string); ok {
+			return "/avatars/" + useridStr + ".jpg", nil
 		}
 	}
 	return "", ErrNoAvatarURL

@@ -83,7 +83,7 @@ func main() {
 		github.New(cs.Github.ClientID, cs.Github.ClientSecret, cs.Github.RedirectUris[0]),
 	)
 
-	r := newRoom(UseGravatar)
+	r := newRoom(UseFileSystemAvatar)
 	// show log
 	//r.tracer = trace.New(os.Stdout)
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))

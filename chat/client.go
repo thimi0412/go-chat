@@ -27,6 +27,7 @@ func (c *client) read() {
 			if avatarURL, ok := c.userData["avatar_url"]; ok {
 				msg.AvatarURL = avatarURL.(string)
 			}
+			msg.AvatarURL, _ = c.room.avatar.GetAvatarURL(c)
 			c.room.forward <- msg
 		} else {
 			break

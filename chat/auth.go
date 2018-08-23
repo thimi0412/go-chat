@@ -70,7 +70,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		m := md5.New()
 		io.WriteString(m, strings.ToLower(user.Name()))
-		userID := fmt.Sprintf
+		userID := fmt.Sprintf("%x", m.Sum(nil))
 
 		authCookieValue := objx.New(map[string]interface{}{
 			"userid":     userID,
